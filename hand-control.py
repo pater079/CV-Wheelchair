@@ -151,7 +151,7 @@ def get_control(
         image = cv2.flip(image, 1)
         rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_image)
-        recognizer.recognize_async(mp_image, time() * 1000)
+        recognizer.recognize_async(mp_image, int(time()) * 1000)
 
         # Process recognized gestures
         if recognition_results:
