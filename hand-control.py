@@ -146,6 +146,35 @@ def motorDirection(category_name: str = 'none'):
 		l_state = "off"
 
 
+def motorStop(): #function to gradually stop the motors
+	global pwm_back_left, pwm_back_right, pwm_forward_left,pwm_forward_right, max_speed, forward_left_motor, backward_right_motor,forward_right_motor, backward_left_motor
+
+	if pwm_back_left > 0 or pwm_back_right > 0: #if the motors are moving backward
+
+		while pwm_back_left > 0 or pwm_back_right > 0:
+			pwm_back
+		
+			forward_left_motor.ChangeDutyCycle(pwm_forward_left)
+			forward_right_motor.ChangeDutyCycle(pwm_forward_right)
+			backward_left_motor.ChangeDutyCycle(pwm_back_left)
+			backward_right_motor.ChangeDutyCycle(pwm_back_right)
+
+			sleep(0.1)
+
+	elif pwm_forward_left > 0 or pwm_forward_right > 0: #if the motors are moving forward
+
+		while pwm_forward_left > 0 or pwm_forward_right > 0:
+
+
+			forward_left_motor.ChangeDutyCycle(pwm_forward_left)
+			forward_right_motor.ChangeDutyCycle(pwm_forward_right)
+			backward_left_motor.ChangeDutyCycle(pwm_back_left)
+			backward_right_motor.ChangeDutyCycle(pwm_back_right)
+
+			sleep(0.1)
+
+
+
 def motorDirection2(category_name: str = 'none'):
 	global pwm_back_left, pwm_back_right, pwm_forward_left, pwm_forward_right, max_speed, forward_left_motor, backward_right_motor,forward_right_motor, backward_left_motor
  
@@ -162,7 +191,7 @@ def motorDirection2(category_name: str = 'none'):
 		pwm_back_right = min(pwm_back_right + 5, max_speed)
 		pwm_forward_left = 0
 		pwm_forward_right = 0
-		if(pwm_back_left != pwm_back_right):
+		if(pwm_back_left != pwm_back_right): #if uneven speeds are set, set the speed to the highest speed
 			pwm_back_left = max(pwm_back_left, pwm_back_right)
 			pwm_back_right = pwm_back_left
 	elif category_name == "left":
