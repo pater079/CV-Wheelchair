@@ -163,7 +163,7 @@ def motorStop(): #function to gradually stop the motors
 		while pwm_forward_left > 0 and pwm_forward_right > 0:
 			pwm_forward_right = max(0, (pwm_forward_right - (temp_right_speed/4)))
 			pwm_forward_left = max(0, (pwm_forward_left - (temp_left_speed/4)))
-			
+			sleep(0.1)
 		
 
 		
@@ -182,7 +182,7 @@ def motorStop(): #function to gradually stop the motors
 		while pwm_back_left > 0 and pwm_back_right > 0:
 			pwm_back_right = max(0, (pwm_back_right - (temp_right_speed2/4)))
 			pwm_back_left = max(0, (pwm_back_left - (temp_left_speed2/4)))
-
+			sleep(0.1)
 
 def motorDirection2(category_name: str = 'none'):
 	global pwm_back_left, pwm_back_right, pwm_forward_left, pwm_forward_right, max_speed, forward_left_motor, backward_right_motor,forward_right_motor, backward_left_motor
