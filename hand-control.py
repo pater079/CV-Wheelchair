@@ -48,6 +48,7 @@ prev_times = {"left": time(), "right": time()}
 
 
 def light_on():
+    print("hello")
     # LED strip configuration:
     LED_COUNT      = 30     # Number of LED pixels.
     LED_PIN        = 17      # GPIO pin connected to the pixels (18 uses PWM!).
@@ -185,4 +186,5 @@ def get_control(
 
 # Main function
 if __name__ == "__main__":
+    light_on()
     get_control("my_gesture_recognizer.task", 1, 0.8, 0.5, 0.5, 0, 640, 480)
