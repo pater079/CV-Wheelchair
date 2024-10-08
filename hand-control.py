@@ -15,7 +15,6 @@ import argparse
 # You may obtain pwdt vision
 
 # GPIO Setup
-LED_PIN = 12
 PWM_FREQ = 500  # Frequency for PWM
 MOTOR_PINS = {
     "forward_left": 13,
@@ -47,17 +46,7 @@ motor_states = {"left": "off", "right": "off"}
 prev_times = {"left": time(), "right": time()}
 
 
-def light_on():
-    print("hello")
-    # LED strip configuration:
-    LED_COUNT      = 30     # Number of LED pixels.
-    LED_PIN        = 17      # GPIO pin connected to the pixels (18 uses PWM!).
-    #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
-    LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
-    LED_DMA        = 10      # DMA channel to use for generating a signal (try 10)
-    LED_BRIGHTNESS = 65      # Set to 0 for darkest and 255 for brightest
-    LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-    LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+
 def motorDirection(category_name: str = "none"):
     """Control motor direction based on gesture input."""
     global pwm_values, motor_states, prev_times
@@ -186,5 +175,4 @@ def get_control(
 
 # Main function
 if __name__ == "__main__":
-    light_on()
     get_control("my_gesture_recognizer.task", 1, 0.8, 0.5, 0.5, 0, 640, 480)
