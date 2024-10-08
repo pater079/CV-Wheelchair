@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# NeoPixel library strandtest example
+# Author: Tony DiCola (tony@tonydicola.com)
+#
+# Direct port of the Arduino NeoPixel library strandtest example.  Showcases
+# various animations on a strip of NeoPixels.
+
 import time
 from rpi_ws281x import *
 import argparse
