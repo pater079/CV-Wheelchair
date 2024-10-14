@@ -14,6 +14,20 @@ import argparse
 # you may not use this file except in compliance with the License.
 # You may obtain pwdt vision
 
+#W0000 00:00:1728949765.704367    3167 landmark_projection_calculator.cc:186] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+# Traceback (most recent call last):
+#   File "/home/cv/CV-Wheelchair/hand-control.py", line 178, in <module>
+#     get_control("my_gesture_recognizer.task", 1, 0.8, 0.5, 0.5, 0, 640, 480)
+#   File "/home/cv/CV-Wheelchair/hand-control.py", line 156, in get_control
+#     recognizer.recognize_async(mp_image, int(time()) * 1000)
+#   File "/home/cv/.local/share/virtualenvs/CV-Wheelchair-lTqg4uyG/lib/python3.11/site-packages/mediapipe/tasks/python/vision/gesture_recognizer.py", line 473, in recognize_async
+#     self._send_live_stream_data({
+#   File "/home/cv/.local/share/virtualenvs/CV-Wheelchair-lTqg4uyG/lib/python3.11/site-packages/mediapipe/tasks/python/vision/core/base_vision_task_api.py", line 139, in _send_live_stream_data
+#     self._runner.send(inputs)
+# ValueError: Input timestamp must be monotonically increasing.
+
+
+
 # GPIO Setup
 PWM_FREQ = 500  # Frequency for PWM
 MOTOR_PINS = {
