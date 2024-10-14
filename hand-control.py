@@ -205,7 +205,7 @@ def motorDirection2(category_name: str = 'none'):
 		pwm_forward_left = 0
 	elif category_name == "stop":
 		motorStop()
-		
+
 	# else:
 	# 	pwm_back_left = 0
 	# 	pwm_back_right = 0
