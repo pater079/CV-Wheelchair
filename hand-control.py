@@ -146,43 +146,33 @@ def motorDirection(category_name: str = 'none'):
 		l_state = "off"
 
 
-def motorStop(): #function to gradually stop the motors
-	global pwm_back_left, pwm_back_right, pwm_forward_left,pwm_forward_right, max_speed, forward_left_motor, backward_right_motor,forward_right_motor, backward_left_motor
+def motorStop(): # Function to gradually stop the motors
+    global pwm_back_left, pwm_back_right, pwm_forward_left, pwm_forward_right, max_speed
+    global forward_left_motor, backward_right_motor, forward_right_motor, backward_left_motor
 
-	if pwm_back_left > 0 or pwm_back_right > 0: #if the motors are moving backward
-		temp_left_speed = pwm_back_left
-		temp_right_speed = pwm_back_right
-		pwm_back_left = 0 
-		pwm_back_right = 0
-		pwm_back_left = temp_left_speed
-		pwm_back_right = temp_right_speed
-		forward_left_motor.ChangeDutyCycle(pwm_forward_left)
-		forward_right_motor.ChangeDutyCycle(pwm_forward_right)
-		backward_left_motor.ChangeDutyCycle(pwm_back_left)
-		backward_right_motor.ChangeDutyCycle(pwm_back_right)
-		while pwm_forward_left > 0 and pwm_forward_right > 0:
-			pwm_forward_right = max(0, (pwm_forward_right - (temp_right_speed/4)))
-			pwm_forward_left = max(0, (pwm_forward_left - (temp_left_speed/4)))
-			sleep(0.1)
-		
+    # Gradual stop when moving backward
+    if pwm_back_left > 0 or pwm_back_right > 0:
+        temp_left_speed = pwm_back_left
+        temp_right_speed = pwm_back_right
+        while pwm_back_left > 0 or pwm_back_right > 0:
+            pwm_back_left = max(0, pwm_back_left - (temp_left_speed / 4))
+            pwm_back_right = max(0, pwm_back_right - (temp_right_speed / 4))
+            backward_left_motor.ChangeDutyCycle(pwm_back_left)
+            backward_right_motor.ChangeDutyCycle(pwm_back_right)
+            sleep(0.1)
 
-		
+    # Gradual stop when moving forward
+    elif pwm_forward_left > 0 or pwm_forward_right > 0:
+        temp_left_speed = pwm_forward_left
+        temp_right_speed = pwm_forward_right
+        while pwm_forward_left > 0 or pwm_forward_right > 0:
+            pwm_forward_left = max(0, pwm_forward_left - (temp_left_speed / 4))
+            pwm_forward_right = max(0, pwm_forward_right - (temp_right_speed / 4))
+            forward_left_motor.ChangeDutyCycle(pwm_forward_left)
+            forward_right_motor.ChangeDutyCycle(pwm_forward_right)
+            sleep(0.1)
 
-	elif pwm_forward_left > 0 or pwm_forward_right > 0: #if the motors are moving forward
-		temp_left_speed2 = pwm_forward_left
-		temp_right_speed2 = pwm_forward_right
-		pwm_forward_right = 0 
-		pwm_forward_left = 0
-		pwm_forward_left = temp_left_speed2
-		pwm_forward_right = temp_right_speed2
-		forward_left_motor.ChangeDutyCycle(pwm_forward_left)
-		forward_right_motor.ChangeDutyCycle(pwm_forward_right)
-		backward_left_motor.ChangeDutyCycle(pwm_back_left)
-		backward_right_motor.ChangeDutyCycle(pwm_back_right)
-		while pwm_back_left > 0 and pwm_back_right > 0:
-			pwm_back_right = max(0, (pwm_back_right - (temp_right_speed2/4)))
-			pwm_back_left = max(0, (pwm_back_left - (temp_left_speed2/4)))
-			sleep(0.1)
+
 
 def motorDirection2(category_name: str = 'none'):
 	global pwm_back_left, pwm_back_right, pwm_forward_left, pwm_forward_right, max_speed, forward_left_motor, backward_right_motor,forward_right_motor, backward_left_motor
@@ -214,10 +204,8 @@ def motorDirection2(category_name: str = 'none'):
 		pwm_back_right = 0
 		pwm_forward_left = 0
 	elif category_name == "stop":
-		pwm_back_left = 0
-		pwm_back_right = 0
-		pwm_forward_right = 0
-		pwm_forward_left = 0
+		motorStop()
+		
 	# else:
 	# 	pwm_back_left = 0
 	# 	pwm_back_right = 0
