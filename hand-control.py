@@ -5,6 +5,8 @@ import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 from time import time, sleep
+from rpi_ws281x import *
+import argparse
 
 # Copyright 2023 The MediaPipe Authors. All Rights Reserved.
 
@@ -13,7 +15,6 @@ from time import time, sleep
 # You may obtain pwdt vision
 
 # GPIO Setup
-LED_PIN = 12
 PWM_FREQ = 500  # Frequency for PWM
 MOTOR_PINS = {
     "forward_left": 13,
@@ -43,6 +44,7 @@ pwm_values = {
 max_speed = 50  # Maximum PWM duty cycle value
 motor_states = {"left": "off", "right": "off"}
 prev_times = {"left": time(), "right": time()}
+
 
 
 def motorDirection(category_name: str = "none"):
