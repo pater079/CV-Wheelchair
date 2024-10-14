@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+PYTHONIOENCODING=utf-8
+
+[packages]
+rpi-ws281x = "*"
+adafruit-circuitpython-neopixel = "*"
+adafruit-blinka = "*"
+"rpi.gpio" = "*"
+keyboard = "*"
+opencv-python = "*"
+mediapipe = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11.2"
+
+[scripts]
+cv-run = "sudo /home/cv/.local/sre/virtualenvs/CV-Wheelchair-lTqg4uyG/bin/python"
