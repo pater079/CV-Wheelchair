@@ -50,9 +50,9 @@ if __name__ == '__main__':
             break
         elif(my_input == "move"):
             moving_light(strip)
-            break
+            
         elif(my_input == "stop"):
             break_light(strip)
-            break
+     
 
     
