@@ -52,99 +52,6 @@ prevTimeL = time.time()
 prevTimeR = time.time()
 
 
-def motorDirection(category_name: str = 'none'):
-	global pwm_back_left, pwm_back_right, pwm_forward_left,pwm_forward_right, max_speed, l_state, r_state, prevTimeL, prevTimeR
-	
-	i = 0
-	def forwardMotor(left: bool):
-		global pwm_back_left, pwm_back_right, pwm_forward_left,pwm_forward_right, max_speed, l_state, r_state, prevTimeL, prevTimeR
-		if(left):
-			if(pwm_forward_left < max_speed):
-				if(l_state == "off"):
-					currTimeL = time.time()
-					prevTimeL = time.time()
-					l_state = "ramping"
-				elif(l_state == "ramping"):
-					currTimeL = time.time()
-					if(currTimeL - prevTimeL >= 0.5):
-						pwm_forward_left = pwm_forward_left + 5 
-						prevTimeL = currTimeL
-			else:
-				l_state = "at speed"			
-				pwm_forward_left = max_speed
-		else:
-			if(pwm_forward_right < max_speed):
-				if(r_state == "off"):
-					currTimeR = time.time()
-					prevTimeR = time.time()
-					r_state = "ramping"
-				elif(r_state == "ramping"):
-					currTimeR = time.time()
-					if(currTimeR - prevTimeR >= 0.5):
-						pwm_forward_right = pwm_forward_right + 5 
-						prevTimeR = currTimeR
-			else:
-				r_state = "at speed"
-				pwm_forward_right = max_speed
-	
-	def backwardMotor(left: bool):
-		global pwm_back_left, pwm_back_right, pwm_forward_left,pwm_forward_right, max_speed, l_state, r_state, prevTimeL, prevTimeR
-		if(left):
-			if(pwm_back_left < max_speed):
-				if(l_state == "off"):
-					currTimeL = time.time()
-					prevTimeL = time.time()
-					l_state = "ramping"
-				elif(l_state == "ramping"):
-					currTimeL = time.time()
-					if(currTimeL - prevTimeL >= 0.5):
-						pwm_back_left = pwm_back_left + 5 
-						prevTimeL = currTimeL
-			else:
-				l_state = "at speed"			
-				pwm_back_left = max_speed
-		else:
-			if(pwm_back_right < max_speed):
-				if(r_state == "off"):
-					currTimeR = time.time()
-					prevTimeR = time.time()
-					r_state = "ramping"
-				elif(r_state == "ramping"):
-					currTimeR = time.time()
-					if(currTimeR - prevTimeR >= 0.5):
-						pwm_back_right = pwm_back_right + 5 
-						prevTimeR = currTimeR
-			else:
-				r_state = "at speed"
-				pwm_back_right = max_speed
-    
-	if category_name == "forward":
-		forwardMotor(True)
-		forwardMotor(False)
-	elif category_name == "backward":
-		backwardMotor(True)
-		backwardMotor(False)
-	elif category_name == "left":
-		forwardMotor(True)
-		r_state = "off"
-		pwm_back_right = 0
-		pwm_forward_right = 0
-	elif category_name == "right":
-		forwardMotor(False)
-		l_state = "off"
-		pwm_back_left = 0
-		pwm_forward_left = 0
-	elif category_name == "stop":
-		r_state = "off"
-		pwm_back_right = 0
-		pwm_forward_right = 0
-		l_state = "off"
-	else:
-		r_state = "off"
-		pwm_back_right = 0
-		pwm_forward_right = 0
-		l_state = "off"
-
 
 def motorDirection2(category_name: str = 'none'):
 	global pwm_back_left, pwm_back_right, pwm_forward_left, pwm_forward_right, max_speed, forward_left_motor, backward_right_motor,forward_right_motor, backward_left_motor
@@ -280,7 +187,7 @@ def get_control(model: str, num_hands: int,
 			cv2.imshow('gesture_recognition', recognition_frame)
 
 		# Stop the program if the ESC key is pressed.
-		if cv2.waitKey(1) == 27:
+		if keyboard.is_pressed('Esc'):
 			break
 
 	recognizer.close()
