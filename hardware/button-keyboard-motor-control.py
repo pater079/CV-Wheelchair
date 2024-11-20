@@ -42,6 +42,20 @@ r_state = "off"
 prevTimeL = time.time()
 prevTimeR = time.time()
 
+def ramp_motor_speed(pwm_instance, final_speed, ramp_time=2.0):
+    current_percentage = 0.05  # Start from the defined percentage
+    increment_time = 0.1  # Time between increments (in seconds)
+    increment_value = (1.0 - 0.05) / (ramp_time / increment_time)  # Calculate increment value
+
+    while current_percentage <= 1.0:  # Ramp up to 100%
+        current_speed = final_speed * current_percentage  # Calculate current speed
+        pwm_instance.ChangeDutyCycle(current_speed)
+        sleep(increment_time)  # Wait for the next increment
+        current_percentage += increment_value  # Increase the percentage
+
+    # Set to final speed to ensure it's at the target speed
+    pwm_instance.ChangeDutyCycle(final_speed)
+
 i = 0
 while True:
 	pi_pwm.ChangeDutyCycle(pwm_forward_left)
